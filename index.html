@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Pendampingan BOSP SMP 2026 - Dinas Pendidikan Kab. Garut</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container { height: 350px; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between">
+
+    <!-- App Header -->
+    <header class="bg-indigo-950 text-white shadow-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-3">
+            <div class="flex items-center space-x-3">
+                <div class="bg-amber-400 text-indigo-950 p-2.5 rounded-xl font-extrabold shadow-md flex items-center justify-center">
+                    <i class="fas fa-user-tie text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-lg md:text-xl tracking-tight leading-tight">Portal Pendampingan BOSP SMP 2026</h1>
+                    <p class="text-xs text-indigo-200">Dinas Pendidikan Kabupaten Garut &bull; Permendikdasmen No. 8 & 15 Tahun 2026</p>
+                </div>
+            </div>
+            
+            <!-- Navigation Tabs -->
+            <nav class="flex flex-wrap items-center gap-1.5 bg-indigo-900/80 p-1.5 rounded-xl border border-indigo-800 text-xs md:text-sm font-medium">
+                <button onclick="switchTab('tab-siklus')" id="btn-tab-siklus" class="nav-btn px-3 py-1.5 rounded-lg transition-all bg-indigo-700 text-white shadow font-semibold">
+                    <i class="fas fa-rotate text-amber-300 mr-1.5"></i> Siklus Tahunan
+                </button>
+                <button onclick="switchTab('tab-kalkulator')" id="btn-tab-kalkulator" class="nav-btn px-3 py-1.5 rounded-lg transition-all text-indigo-200 hover:text-white hover:bg-indigo-800">
+                    <i class="fas fa-calculator text-emerald-300 mr-1.5"></i> Simulator RKAS
+                </button>
+                <button onclick="switchTab('tab-matriks')" id="btn-tab-matriks" class="nav-btn px-3 py-1.5 rounded-lg transition-all text-indigo-200 hover:text-white hover:bg-indigo-800">
+                    <i class="fas fa-shield-halved text-sky-300 mr-1.5"></i> Solusi Lapangan
+                </button>
+                <button onclick="switchTab('tab-ceklis')" id="btn-tab-ceklis" class="nav-btn px-3 py-1.5 rounded-lg transition-all text-indigo-200 hover:text-white hover:bg-indigo-800">
+                    <i class="fas fa-list-check text-yellow-300 mr-1.5"></i> Quick Checklist
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Layout -->
+    <main class="max-w-7xl mx-auto px-4 py-6 space-y-8 w-full flex-grow">
+
+        <!-- Welcome & Context Banner -->
+        <section class="bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 text-white p-6 rounded-2xl shadow-lg border border-indigo-700 relative overflow-hidden">
+            <div class="max-w-3xl space-y-2">
+                <span class="inline-block px-3 py-1 bg-amber-400 text-indigo-950 text-xs font-black rounded-full uppercase tracking-wider">
+                    Paradigma Modern Pengawasan
+                </span>
+                <h2 class="text-2xl md:text-3xl font-black text-white leading-tight">
+                    Pengawas Pembina sebagai Mentor & Coach Strategic
+                </h2>
+                <p class="text-xs md:text-sm text-slate-200 leading-relaxed">
+                    Aplikasi ini memfasilitasi Pengawas Pembina SMP Dinas Pendidikan Kabupaten Garut dalam menjalankan fungsi pendampingan yang presisi, preventif, serta berbasis data Rapor Pendidikan untuk menjamin tata kelola BOSP yang akuntabel.
+                </p>
+            </div>
+        </section>
+
+        <!-- KPI Key Threshold Cards -->
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 hover:border-indigo-400 transition">
+                <div class="flex items-center justify-between text-indigo-600 mb-2">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Buku & Perpustakaan</span>
+                    <i class="fas fa-book-bookmark text-lg"></i>
+                </div>
+                <div class="text-2xl font-black text-slate-900">Min 10%</div>
+                <p class="text-[11px] text-slate-500 mt-1">Alokasi wajib dari total pagu BOSP</p>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 hover:border-indigo-400 transition">
+                <div class="flex items-center justify-between text-indigo-600 mb-2">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Honor GTK Non-ASN</span>
+                    <i class="fas fa-users text-lg"></i>
+                </div>
+                <div class="text-2xl font-black text-slate-900">20% / 40%</div>
+                <p class="text-[11px] text-slate-500 mt-1">Maksimal (Negeri: 20% | Swasta: 40%)</p>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 hover:border-indigo-400 transition">
+                <div class="flex items-center justify-between text-amber-600 mb-2">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500">PBJ SIPLah</span>
+                    <i class="fas fa-cart-shopping text-lg"></i>
+                </div>
+                <div class="text-2xl font-black text-slate-900">&gt; Rp 1 Juta</div>
+                <p class="text-[11px] text-slate-500 mt-1">Wajib dokumen spesifikasi & BAST</p>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 hover:border-indigo-400 transition">
+                <div class="flex items-center justify-between text-emerald-600 mb-2">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500">SOP Klarifikasi</span>
+                    <i class="fas fa-clock-rotate-left text-lg"></i>
+                </div>
+                <div class="text-2xl font-black text-slate-900">7 - 14 Hari</div>
+                <p class="text-[11px] text-slate-500 mt-1">Tenggat perbaikan dokumen SPJ</p>
+            </div>
+        </section>
+
+        <!-- TAB 1: SIKLUS TAHUNAN PENDAMPINGAN -->
+        <section id="tab-siklus" class="tab-content space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <div class="border-b pb-4 mb-6">
+                    <h3 class="text-lg font-bold text-indigo-950 flex items-center gap-2">
+                        <i class="fas fa-diagram-project text-indigo-600"></i> Matriks Tahapan Pendampingan Pengawas BOSP SMP
+                    </h3>
+                    <p class="text-xs text-slate-600 mt-1">
+                        Siklus tahunan pendampingan pengawas pembina dibagi menjadi tiga fase berkesinambungan. Klik pada salah satu tahap di bawah ini untuk mempelajari langkah kerja, fokus verifikasi, dan output dokumen.
+                    </p>
+                </div>
+
+                <!-- Cycle Selector Buttons -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <button onclick="selectCyclePhase(1)" id="phase-btn-1" class="phase-btn p-4 rounded-xl border-2 border-indigo-600 bg-indigo-50 text-left transition relative overflow-hidden">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-xs font-black uppercase text-indigo-600">Tahap 1</span>
+                            <span class="text-[10px] font-bold bg-indigo-200 text-indigo-900 px-2 py-0.5 rounded-full">Nov – Jan</span>
+                        </div>
+                        <h4 class="font-bold text-indigo-950 text-sm">PRA-PELAKSANAAN</h4>
+                        <p class="text-xs text-slate-600 mt-1">Perencanaan Berbasis Data (PBD) & Verifikasi RKAS ARKAS 4.x</p>
+                    </button>
+
+                    <button onclick="selectCyclePhase(2)" id="phase-btn-2" class="phase-btn p-4 rounded-xl border-2 border-slate-200 bg-white hover:border-indigo-300 text-left transition">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-xs font-black uppercase text-slate-500">Tahap 2</span>
+                            <span class="text-[10px] font-bold bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full">Feb – Nov</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm">SAAT PELAKSANAAN</h4>
+                        <p class="text-xs text-slate-600 mt-1">Penatausahaan BKU, Transaksi Cashless & PBJ SIPLah Digital</p>
+                    </button>
+
+                    <button onclick="selectCyclePhase(3)" id="phase-btn-3" class="phase-btn p-4 rounded-xl border-2 border-slate-200 bg-white hover:border-indigo-300 text-left transition">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-xs font-black uppercase text-slate-500">Tahap 3</span>
+                            <span class="text-[10px] font-bold bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full">Akhir Tahap/Semester</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm">PASCA-PELAKSANAAN</h4>
+                        <p class="text-xs text-slate-600 mt-1">Monev Digital, SPJ, SOP Klarifikasi & Pengesahan Laporan</p>
+                    </button>
+                </div>
+
+                <!-- Phase Detail Card -->
+                <div id="phase-detail-container" class="bg-indigo-950/5 border border-indigo-200 p-6 rounded-xl space-y-4">
+                    <!-- Dynamic Javascript Content -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: SIMULATOR & KALKULATOR LIMITER RKAS -->
+        <section id="tab-kalkulator" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <div class="border-b pb-4 mb-6">
+                    <h3 class="text-lg font-bold text-indigo-950 flex items-center gap-2">
+                        <i class="fas fa-calculator text-emerald-600"></i> Simulator Ambang Batas Regulasi Permendikdasmen No. 8/2026
+                    </h3>
+                    <p class="text-xs text-slate-600 mt-1">
+                        Masukkan alokasi rencana anggaran sekolah binaan untuk memverifikasi secara langsung apakah alokasi honorarium dan belanja buku telah mematuhi aturan regulasi BOSP 2026.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <!-- Input Form -->
+                    <div class="lg:col-span-6 space-y-4 bg-slate-50 p-5 rounded-xl border border-slate-200">
+                        <h4 class="font-bold text-sm text-slate-800 border-b pb-2 flex items-center justify-between">
+                            <span>Input Parameter Sekolah</span>
+                            <span class="text-[10px] bg-slate-200 px-2 py-0.5 rounded text-slate-700 font-semibold">Simulasi ARKAS</span>
+                        </h4>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Status Satuan Pendidikan</label>
+                            <select id="simStatus" onchange="calculateBudgetSimulation()" class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-xs font-semibold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                                <option value="Negeri">SMP Negeri (Maksimal Honor GTK 20%)</option>
+                                <option value="Swasta">SMP Swasta (Maksimal Honor GTK 40%)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Total Pagu Dana BOSP T.A. 2026 (Rp)</label>
+                            <input type="number" id="simPagu" value="500000000" step="1000000" oninput="calculateBudgetSimulation()" class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-xs font-bold text-indigo-950 focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="Masukkan total pagu...">
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Alokasi Honorarium GTK (Rp)</label>
+                                <input type="number" id="simHonor" value="90000000" step="1000000" oninput="calculateBudgetSimulation()" class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Alokasi Perpustakaan (Rp)</label>
+                                <input type="number" id="simPerpus" value="55000000" step="1000000" oninput="calculateBudgetSimulation()" class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Alokasi Pemeliharaan Sarpras Ringan (Rp)</label>
+                            <input type="number" id="simSarpras" value="65000000" step="1000000" oninput="calculateBudgetSimulation()" class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        </div>
+
+                        <!-- Real-time Status Alert Box -->
+                        <div id="simAlertBox" class="p-4 rounded-lg text-xs leading-relaxed space-y-2 font-medium">
+                            <!-- Javascript Alert Status -->
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Chart & Summary -->
+                    <div class="lg:col-span-6 space-y-4">
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
+                            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-600 mb-2">Visualisasi Proporsi Anggaran RKAS</h4>
+                            
+                            <!-- Chart Container -->
+                            <div class="chart-container">
+                                <canvas id="budgetChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Analysis Metrics -->
+                        <div class="grid grid-cols-2 gap-3 text-center">
+                            <div class="p-3 bg-indigo-50 border border-indigo-200 rounded-lg">
+                                <span class="text-[10px] uppercase font-bold text-indigo-700">Persentase Honorarium</span>
+                                <p id="metricHonorPct" class="text-lg font-black text-indigo-950">0%</p>
+                                <p id="metricHonorLimit" class="text-[10px] text-slate-500">Maksimal: 20%</p>
+                            </div>
+                            <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-lg">
+                                <span class="text-[10px] uppercase font-bold text-emerald-700">Persentase Perpustakaan</span>
+                                <p id="metricPerpusPct" class="text-lg font-black text-emerald-950">0%</p>
+                                <p class="text-[10px] text-slate-500">Minimal: 10%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: MATRIKS SOLUSI TEMUAN LAPANGAN -->
+        <section id="tab-matriks" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <div class="border-b pb-4 mb-6 flex flex-col md:flex-row justify-between md:items-center gap-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-indigo-950 flex items-center gap-2">
+                            <i class="fas fa-shield-halved text-sky-600"></i> Matriks Tanggapan & Tindakan Pembinaan Pengawas
+                        </h3>
+                        <p class="text-xs text-slate-600 mt-1">
+                            SOP Klarifikasi Prosedural: Membedakan secara tegas antara keterlambatan administrasi dengan pelanggaran struktur anggaran.
+                        </p>
+                    </div>
+
+                    <!-- Search & Filter Controls -->
+                    <div class="flex items-center gap-2">
+                        <div class="relative">
+                            <input type="text" id="searchMatrix" oninput="filterMatrixTable()" placeholder="Cari kasus temuan..." class="pl-8 pr-3 py-1.5 bg-slate-100 border border-slate-300 rounded-lg text-xs w-48 md:w-64 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                            <i class="fas fa-search absolute left-2.5 top-2 text-slate-400 text-xs"></i>
+                        </div>
+                        <select id="filterCategory" onchange="filterMatrixTable()" class="bg-slate-100 border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-slate-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                            <option value="All">Semua Kategori</option>
+                            <option value="Administrasi">Kekurangan Administrasi</option>
+                            <option value="Struktur Anggaran">Kesalahan Struktur Anggaran</option>
+                            <option value="Ketentuan Juknis">Pelanggaran Juknis</option>
+                            <option value="Komponen Belanja">Ketidaksesuaian Belanja</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Matrix Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead>
+                            <tr class="bg-indigo-950 text-white uppercase font-bold tracking-wider text-[11px]">
+                                <th class="p-3.5 rounded-tl-lg w-1/3">Kondisi Lapangan / Temuan Inspeksi</th>
+                                <th class="p-3.5 w-1/4">Kategori Masalah</th>
+                                <th class="p-3.5 w-16 text-center">Skor</th>
+                                <th class="p-3.5 rounded-tr-lg">Tindakan / Langkah Pembinaan Pengawas Pembina</th>
+                            </tr>
+                        </thead>
+                        <tbody id="matrixTableBody" class="divide-y divide-slate-200">
+                            <!-- Javascript populated -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: CEKLIS EVALUASI CEPAT & AUTOSCORING -->
+        <section id="tab-ceklis" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <div class="border-b pb-4 mb-6 flex flex-col md:flex-row justify-between md:items-center gap-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-indigo-950 flex items-center gap-2">
+                            <i class="fas fa-list-check text-amber-500"></i> Instrumen Quick Checklist Evaluasi Pengawas
+                        </h3>
+                        <p class="text-xs text-slate-600 mt-1">
+                            Gunakan instrumen ini saat melakukan verval berkas sekolah binaan untuk memperoleh persentase kepatuhan dan status predikat secara otomatis.
+                        </p>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <button onclick="resetChecklist()" class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-lg text-xs font-semibold transition flex items-center gap-1">
+                            <i class="fas fa-arrow-rotate-left"></i> Reset
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- Checklist Form -->
+                    <div class="lg:col-span-8 space-y-3">
+                        <div id="checklistItemsContainer" class="space-y-3">
+                            <!-- Javascript populated items -->
+                        </div>
+                    </div>
+
+                    <!-- Live Assessment Summary Panel -->
+                    <div class="lg:col-span-4 space-y-4 sticky top-20">
+                        <div class="bg-indigo-950 text-white p-5 rounded-xl shadow-lg border border-indigo-900 space-y-4">
+                            <h4 class="font-bold text-sm border-b border-indigo-800 pb-2 flex items-center justify-between">
+                                <span>Hasil Capaian Kinerja</span>
+                                <i class="fas fa-chart-pie text-amber-400"></i>
+                            </h4>
+
+                            <div class="text-center py-2">
+                                <span class="text-xs uppercase tracking-wider text-indigo-200 block">Skor Kepatuhan</span>
+                                <div id="liveChecklistScore" class="text-4xl font-black text-amber-400 mt-1">0 / 14</div>
+                                <div id="liveChecklistPct" class="text-sm font-bold text-emerald-400 mt-0.5">0.0%</div>
+                            </div>
+
+                            <div class="bg-indigo-900/80 p-3 rounded-lg border border-indigo-800 text-center">
+                                <span class="text-[10px] text-indigo-300 uppercase font-bold block">Predikat Pendampingan</span>
+                                <div id="liveChecklistPredikat" class="text-sm font-black text-white mt-1">Belum Terisi</div>
+                            </div>
+
+                            <div id="sopClarificationNotice" class="hidden bg-amber-500/20 border border-amber-400/40 p-3 rounded-lg text-xs text-amber-200 leading-relaxed">
+                                <i class="fas fa-triangle-exclamation text-amber-400 mr-1"></i>
+                                <strong>Catatan SOP Klarifikasi:</strong> Terdapat indikator berkategori Skor 1. Terbitkan Lembar Klarifikasi Konfirmatif dengan batas perbaikan 7–14 hari kerja.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-indigo-950 text-indigo-300 border-t border-indigo-900 text-center py-4 text-xs">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <p>&copy; 2026 Dinas Pendidikan Kabupaten Garut &bull; Tim Pengawas Pembina SMP</p>
+            <p class="font-bold text-amber-400">Pengembang Format & Instrumen: IFS</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Data Phase Siklus Pendampingan
+        const cyclePhasesData = {
+            1: {
+                title: "TAHAP 1: PRA-PELAKSANAAN (Perencanaan & Penganggaran)",
+                time: "November – Januari",
+                icon: "fa-pen-ruler",
+                color: "indigo",
+                steps: [
+                    { title: "Pendampingan Analisis Rapor Pendidikan (PBD)", desc: "Mendampingi Kepala Sekolah dan Tim Pengembang Sekolah (TPS) mengunduh serta menganalisis Indikator Prioritas Rapor Pendidikan SMP terbaru (Literasi, Numerasi, Karakter, Keamanan Sekolah, Kebinekaan).", output: "Dokumen Lembar PBD (Identifikasi - Refleksi - Benahi)" },
+                    { title: "Verifikasi Linieritas RKT & RKAS ARKAS 4.x", desc: "Memeriksa draft RKAS pada aplikasi ARKAS 4.x sebelum disahkan secara resmi oleh Dinas Pendidikan.", output: "Lembar Verifikasi / Pengesahan RKAS Pengawas Pembina" }
+                ],
+                checks: [
+                    "Alokasi pengembangan perpustakaan/buku minimal 10% dari total pagu BOSP.",
+                    "Batas honorarium GTK Non-ASN: Maksimal 20% (SMP Negeri) atau Maksimal 40% (SMP Swasta).",
+                    "Belanja sarpras hanya untuk pemeliharaan/kerusakan ringan."
+                ]
+            },
+            2: {
+                title: "TAHAP 2: SAAT PELAKSANAAN (Penatausahaan & PBJ SIPLah)",
+                time: "Feb/Maret – November (Rutinitas Bulanan)",
+                icon: "fa-cash-register",
+                color: "emerald",
+                steps: [
+                    { title: "Pendampingan Penatausahaan BKU Bulanan", desc: "Memantau penutupan BKU (Buku Kas Umum), Buku Bank, dan Buku Pajak secara teratur pada aplikasi ARKAS akhir bulan.", output: "Cetak BKU Bulanan & Rekening Koran Terverifikasi" },
+                    { title: "Validasi Alur PBJ Satuan Pendidikan (Permendikdasmen 15/2026)", desc: "Memastikan transaksi pengadaan barang/jasa dilakukan secara transparan melalui SIPLah.", output: "BAST Digital SIPLah & Pencatatan KIB Pemda/Yayasan" }
+                ],
+                checks: [
+                    "Persiapan/spesifikasi belanja dibuat untuk transaksi > Rp 1.000.000.",
+                    "Seluruh transaksi PBJ dilaksanakan secara daring via platform SIPLah.",
+                    "Diutamakannya transaksi non-tunai (cashless/transfer bank)."
+                ]
+            },
+            3: {
+                title: "TAHAP 3: PASCA-PELAKSANAAN (Monev Digital & SOP Klarifikasi)",
+                time: "Setiap Akhir Tahap Penyaluran / Semester",
+                icon: "fa-clipboard-check",
+                color: "amber",
+                steps: [
+                    { title: "Pelaksanaan Monev Digital BOSP", desc: "Melakukan asesmen komprehensif menggunakan Aplikasi Monev Digital BOSP SMP 2026.", output: "Laporan Hasil Monev & Skor Capaian Kepatuhan" },
+                    { title: "Penerapan SOP Klarifikasi Prosedural", desc: "Memberikan tenggat waktu perbaikan (7–14 hari) untuk kekurangan kelengkapan SPJ sebelum menerbitkan rekomendasi akhir.", output: "Formulir Klarifikasi Konfirmatif & Lembar Rekomendasi Official Kop Disdik" }
+                ],
+                checks: [
+                    "Pajak (PPh & PPN) disetor tepat waktu / via SIPLah.",
+                    "Konfirmasi kelengkapan bukti fisik (foto geotag, kuitansi, nota asli).",
+                    "Penandatanganan pengesahan laporan oleh Kepsek, Bendahara & Pengawas."
+                ]
+            }
+        };
+
+        // Data Matriks Solusi Lapangan
+        const matrixData = [
+            {
+                finding: "Nota/Kuitansi hilang atau foto kegiatan belum dicetak dalam berkas SPJ.",
+                category: "Administrasi",
+                score: 1,
+                action: "Terbitkan Lembar Klarifikasi Konfirmatif dengan memberikan batas waktu 7–14 hari kerja untuk melengkapi berkas tanpa tergesa-gesa menilai sebagai penyelewengan."
+            },
+            {
+                finding: "Alokasi Honorarium melebih batas 20% (SMP Negeri) atau 40% (SMP Swasta) pada RKAS.",
+                category: "Struktur Anggaran",
+                score: 0,
+                action: "Intruksikan Kepala Sekolah melakukan Pergeseran/Revisi RKAS di ARKAS pada periode perubahan resmi untuk mengembalikan porsi honor ke batas legal."
+            },
+            {
+                finding: "Pembayaran Honor kepada Guru/Tendik ASN atau Guru Honorer tanpa NUPTK/SK Resmi.",
+                category: "Ketentuan Juknis",
+                score: 0,
+                action: "Minta penghentian pembayaran honorarium dari BOSP dan lakukan pengalihan anggaran ke kegiatan pembelajaran siswa."
+            },
+            {
+                finding: "Belanja Pemeliharaan Gedung digunakan untuk pembangunan ruang kelas baru (RKB).",
+                category: "Komponen Belanja",
+                score: 0,
+                action: "Berikan teguran tertulis dan rekomendasikan pengalihan ke belanja pemeliharaan sarpras kerusakan ringan sesuai Juknis BOSP."
+            },
+            {
+                finding: "Pembelian TIK / Sarpras di atas Rp 1.000.000 dilakukan secara manual tanpa SIPLah.",
+                category: "Ketentuan Juknis",
+                score: 0,
+                action: "Lakukan pembinaan prosedur PBJ digital, minta klarifikasi formal, dan instruksikan seluruh transaksi modal selanjutnya wajib SIPLah."
+            }
+        ];
+
+        // Data Quick Checklist
+        const checklistItems = [
+            { id: 1, text: "Dokumen Lembar PBD (Identifikasi-Refleksi-Benahi) berbasis Rapor Pendidikan SMP.", target: "Ada PBD" },
+            { id: 2, text: "Alokasi Anggaran Perpustakaan/Buku dialokasikan minimal 10% dari total pagu BOSP.", target: "Min 10%" },
+            { id: 3, text: "Alokasi Honorarium GTK Non-ASN tidak melebihi limit 20% (SMPN) / 40% (SMPS).", target: "Sesuai Limit" },
+            { id: 4, text: "Penerima honorarium berstatus Non-ASN, terdaftar Dapodik, NUPTK, & belum sertifikasi.", target: "Memenuhi Syarat" },
+            { id: 5, text: "Transaksi PBJ > Rp 1 Juta dilaksanakan daring via SIPLah & BAST lengkap.", target: "PBJ SIPLah" },
+            { id: 6, text: "Penatausahaan BKU, Buku Bank, & Pajak ditutup rutin bulanan pada ARKAS.", target: "Tertib BKU" },
+            { id: 7, text: "Perhitungan & penyetoran pajak (PPh/PPN) dilakukan tepat waktu.", target: "Pajak Tepat" }
+        ];
+
+        // Chart Instance Variable
+        let budgetChartInstance = null;
+
+        // Navigation Tab Switcher
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-700', 'text-white', 'shadow', 'font-semibold');
+                btn.classList.add('text-indigo-200');
+            });
+
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.add('bg-indigo-700', 'text-white', 'shadow', 'font-semibold');
+            activeBtn.classList.remove('text-indigo-200');
+
+            if (tabId === 'tab-kalkulator' && !budgetChartInstance) {
+                initBudgetChart();
+                calculateBudgetSimulation();
+            }
+        }
+
+        // Cycle Phase Selector Renderer
+        function selectCyclePhase(phaseNum) {
+            for (let i = 1; i <= 3; i++) {
+                const btn = document.getElementById(`phase-btn-${i}`);
+                if (i === phaseNum) {
+                    btn.className = "phase-btn p-4 rounded-xl border-2 border-indigo-600 bg-indigo-50 text-left transition relative overflow-hidden shadow-sm";
+                } else {
+                    btn.className = "phase-btn p-4 rounded-xl border-2 border-slate-200 bg-white hover:border-indigo-300 text-left transition";
+                }
+            }
+
+            const data = cyclePhasesData[phaseNum];
+            const container = document.getElementById('phase-detail-container');
+
+            let stepsHtml = data.steps.map((s, idx) => `
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-1.5">
+                    <div class="flex items-center gap-2 font-bold text-indigo-950 text-xs md:text-sm">
+                        <span class="w-6 h-6 rounded-full bg-indigo-900 text-white flex items-center justify-center text-xs font-black">${idx + 1}</span>
+                        ${s.title}
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed pl-8">${s.desc}</p>
+                    <div class="pl-8 pt-1">
+                        <span class="inline-block bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded">
+                            <i class="fas fa-file-contract mr-1"></i> Output: ${s.output}
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+
+            let checksHtml = data.checks.map(c => `
+                <li class="flex items-start gap-2 text-xs text-slate-700">
+                    <i class="fas fa-circle-check text-indigo-600 mt-0.5"></i>
+                    <span>${c}</span>
+                </li>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-indigo-200 pb-3 gap-2">
+                    <div>
+                        <span class="text-[10px] font-black uppercase tracking-wider text-indigo-600">Fokus Langkah Kerja</span>
+                        <h4 class="font-black text-indigo-950 text-base md:text-lg">${data.title}</h4>
+                    </div>
+                    <span class="bg-indigo-900 text-white text-xs font-bold px-3 py-1 rounded-full">
+                        <i class="fas fa-calendar-alt mr-1 text-amber-300"></i> ${data.time}
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-2">
+                    <div class="lg:col-span-7 space-y-3">
+                        <h5 class="text-xs font-bold text-slate-800 uppercase tracking-wide">Tahapan Aksi Pengawas Coach:</h5>
+                        ${stepsHtml}
+                    </div>
+
+                    <div class="lg:col-span-5 bg-white p-4 rounded-xl border border-slate-200 space-y-3 self-start">
+                        <h5 class="text-xs font-bold text-slate-800 uppercase tracking-wide border-b pb-2 flex items-center justify-between">
+                            <span>Checklist Kunci Regulasi</span>
+                            <i class="fas fa-list-check text-indigo-600"></i>
+                        </h5>
+                        <ul class="space-y-2.5">
+                            ${checksHtml}
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initialize Budget Chart.js
+        function initBudgetChart() {
+            const ctx = document.getElementById('budgetChart').getContext('2d');
+            budgetChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Honorarium GTK', 'Buku & Perpustakaan', 'Pemeliharaan Sarpras', 'Operasional Pembelajaran'],
+                    datasets: [{
+                        data: [90, 55, 65, 290],
+                        backgroundColor: ['#4338ca', '#059669', '#d97706', '#94a3b8'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { size: 10, family: 'Inter' },
+                                boxWidth: 12
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': Rp ' + context.raw.toLocaleString('id-ID') + ' Juta';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Budget Calculator & Limit Rules Engine
+        function calculateBudgetSimulation() {
+            const status = document.getElementById('simStatus').value;
+            const pagu = parseFloat(document.getElementById('simPagu').value) || 0;
+            const honor = parseFloat(document.getElementById('simHonor').value) || 0;
+            const perpus = parseFloat(document.getElementById('simPerpus').value) || 0;
+            const sarpras = parseFloat(document.getElementById('simSarpras').value) || 0;
+
+            const operasional = Math.max(0, pagu - (honor + perpus + sarpras));
+
+            const honorLimitPct = status === 'Negeri' ? 20 : 40;
+            const honorPct = pagu > 0 ? ((honor / pagu) * 100) : 0;
+            const perpusPct = pagu > 0 ? ((perpus / pagu) * 100) : 0;
+
+            document.getElementById('metricHonorPct').innerText = honorPct.toFixed(1) + '%';
+            document.getElementById('metricHonorLimit').innerText = 'Maksimal: ' + honorLimitPct + '%';
+            document.getElementById('metricPerpusPct').innerText = perpusPct.toFixed(1) + '%';
+
+            // Chart update
+            if (budgetChartInstance) {
+                budgetChartInstance.data.datasets[0].data = [
+                    Math.round(honor / 1000000),
+                    Math.round(perpus / 1000000),
+                    Math.round(sarpras / 1000000),
+                    Math.round(operasional / 1000000)
+                ];
+                budgetChartInstance.update();
+            }
+
+            // Validation Alerts
+            const alertBox = document.getElementById('simAlertBox');
+            let messages = [];
+            let isValid = true;
+
+            if (honorPct > honorLimitPct) {
+                isValid = false;
+                messages.push(`<strong><i class="fas fa-circle-exclamation mr-1"></i> Pelanggaran Limit Honorarium:</strong> Porsi honor (${honorPct.toFixed(1)}%) melebihi batas maksimal ${honorLimitPct}% untuk SMP ${status}. Lakukan pergeseran RKAS!`);
+            }
+
+            if (perpusPct < 10) {
+                isValid = false;
+                messages.push(`<strong><i class="fas fa-triangle-exclamation mr-1"></i> Peringatan Perpustakaan:</strong> Alokasi buku/perpustakaan (${perpusPct.toFixed(1)}%) di bawah syarat minimal 10%.`);
+            }
+
+            if (isValid) {
+                alertBox.className = "p-4 rounded-lg text-xs leading-relaxed font-medium bg-emerald-50 border border-emerald-300 text-emerald-900";
+                alertBox.innerHTML = `<i class="fas fa-circle-check text-emerald-600 text-base mr-1.5"></i> <strong>Struktur Anggaran Linier:</strong> Seluruh alokasi RKAS telah mematuhi ambang batas Permendikdasmen No. 8/2026.`;
+            } else {
+                alertBox.className = "p-4 rounded-lg text-xs leading-relaxed font-medium bg-rose-50 border border-rose-300 text-rose-900 space-y-1";
+                alertBox.innerHTML = messages.join('<br>');
+            }
+        }
+
+        // Render Matrix Table
+        function renderMatrixTable(items) {
+            const tbody = document.getElementById('matrixTableBody');
+            tbody.innerHTML = '';
+
+            items.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 border-b border-slate-200 transition";
+
+                let categoryBadge = "bg-slate-100 text-slate-800 border-slate-300";
+                if (item.category === "Administrasi") categoryBadge = "bg-amber-100 text-amber-900 border-amber-300";
+                if (item.category === "Struktur Anggaran") categoryBadge = "bg-rose-100 text-rose-900 border-rose-300";
+                if (item.category === "Ketentuan Juknis") categoryBadge = "bg-purple-100 text-purple-900 border-purple-300";
+
+                tr.innerHTML = `
+                    <td class="p-3.5 font-bold text-slate-900">${item.finding}</td>
+                    <td class="p-3.5">
+                        <span class="inline-block px-2.5 py-1 rounded-full text-[10px] font-extrabold border ${categoryBadge}">
+                            ${item.category}
+                        </span>
+                    </td>
+                    <td class="p-3.5 text-center">
+                        <span class="w-7 h-7 rounded-full inline-flex items-center justify-center font-black text-xs ${item.score === 1 ? 'bg-amber-400 text-amber-950' : 'bg-rose-600 text-white'}">
+                            ${item.score}
+                        </span>
+                    </td>
+                    <td class="p-3.5 text-slate-700 leading-relaxed">${item.action}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterMatrixTable() {
+            const query = document.getElementById('searchMatrix').value.toLowerCase();
+            const category = document.getElementById('filterCategory').value;
+
+            const filtered = matrixData.filter(item => {
+                const matchesSearch = item.finding.toLowerCase().includes(query) || item.action.toLowerCase().includes(query);
+                const matchesCategory = category === "All" || item.category === category;
+                return matchesSearch && matchesCategory;
+            });
+
+            renderMatrixTable(filtered);
+        }
+
+        // Render Quick Checklist Items
+        function renderChecklist() {
+            const container = document.getElementById('checklistItemsContainer');
+            container.innerHTML = '';
+
+            checklistItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className = "bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3";
+                div.innerHTML = `
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold text-indigo-700 bg-indigo-100 px-2 py-0.5 rounded">${item.target}</span>
+                        <p class="text-xs font-semibold text-slate-800 leading-snug">${item.text}</p>
+                    </div>
+                    <div class="flex items-center gap-2 self-end sm:self-center">
+                        <select id="checkScore_${item.id}" onchange="updateChecklistScore()" class="bg-white border border-slate-300 text-indigo-950 font-bold rounded-lg px-2.5 py-1.5 text-xs focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                            <option value="2">2 (Sesuai)</option>
+                            <option value="1">1 (Kurang SPJ)</option>
+                            <option value="0">0 (Tidak Ada)</option>
+                        </select>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            updateChecklistScore();
+        }
+
+        function updateChecklistScore() {
+            let totalEarned = 0;
+            let totalMax = checklistItems.length * 2;
+            let hasScoreOne = false;
+
+            checklistItems.forEach(item => {
+                const scoreElem = document.getElementById(`checkScore_${item.id}`);
+                if (scoreElem) {
+                    const val = parseInt(scoreElem.value);
+                    totalEarned += val;
+                    if (val === 1) hasScoreOne = true;
+                }
+            });
+
+            const pct = (totalEarned / totalMax) * 100;
+
+            document.getElementById('liveChecklistScore').innerText = `${totalEarned} / ${totalMax}`;
+            document.getElementById('liveChecklistPct').innerText = `${pct.toFixed(1)}% Compliance`;
+
+            let predikat = "Atensi Khusus (Risiko Tinggi)";
+            if (pct >= 86) predikat = "Sangat Baik (Mandiri & Akuntabel)";
+            else if (pct >= 71) predikat = "Baik (Terarah)";
+            else if (pct >= 55) predikat = "Dalam Bimbingan (Cukup)";
+
+            document.getElementById('liveChecklistPredikat').innerText = predikat;
+
+            const notice = document.getElementById('sopClarificationNotice');
+            if (hasScoreOne) {
+                notice.classList.remove('hidden');
+            } else {
+                notice.classList.add('hidden');
+            }
+        }
+
+        function resetChecklist() {
+            checklistItems.forEach(item => {
+                const elem = document.getElementById(`checkScore_${item.id}`);
+                if (elem) elem.value = "2";
+            });
+            updateChecklistScore();
+        }
+
+        // Application Initialization
+        window.onload = () => {
+            selectCyclePhase(1);
+            renderMatrixTable(matrixData);
+            renderChecklist();
+        };
+    </script>
+</body>
+</html>
